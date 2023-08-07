@@ -1,5 +1,6 @@
 package modelo;
 
+import controlador.App;
 import enumerados.Sexo;
 
 import java.time.LocalDate;
@@ -122,6 +123,6 @@ public class Persona {
         StringBuilder sb = new StringBuilder();
 
         return sb.append(String.format("Nombre: %s \n Fecha de nacimiento: %s \n DNI: %s \n Sexo: %s \n Peso: %.2f \n Altura: %.2f ",
-                nombre,fechaNacimiento,DNI,sexo,peso,altura)).toString();
+                nombre,fechaNacimiento.format(App.FORMATO),DNI,sexo,peso,altura)).toString();
     }
 }
