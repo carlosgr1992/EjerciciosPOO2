@@ -3,6 +3,8 @@ package modelo;
 import enumerados.Sexo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Persona {
 
@@ -13,11 +15,13 @@ public class Persona {
     private double peso;
     private double altura;
 
+    private static final String NOMBRE_DEFECTO = "Sin nombre";
+
     public Persona(String nombre, LocalDate fechaNacimiento, DNI DNI, Sexo sexo, double peso, double altura) {
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
-        this.DNI = DNI;
-        this.sexo = sexo;
+        setDNI(DNI);
+        setSexo(sexo);
         this.peso = peso;
         this.altura = altura;
     }
@@ -25,22 +29,41 @@ public class Persona {
     public Persona(String nombre, LocalDate fechaNacimiento, Sexo sexo) {
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
-        this.sexo = sexo;
+        setSexo(sexo);
     }
 
     public Persona(String nombre, LocalDate fechaNacimiento, DNI DNI) {
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
         setDNI(DNI);
+        setSexo(sexo);
     }
 
     public Persona() {
-        this.nombre = "";
+        this.nombre = NOMBRE_DEFECTO;
         this.fechaNacimiento = fechaNacimiento;
         this.DNI = new DNI();
-        this.sexo = (sexo != null) ? sexo : Sexo.NS_NC;
+        setSexo(sexo);
         this.peso = 0;
         this.altura = 0;
+    }
+
+    public double calcularIMC(){
+
+        return getPeso() / (getAltura() * getAltura());
+
+    }
+
+    public boolean mayorEdad(){
+
+        return getEdad() >= 18;
+
+    }
+
+    public int getEdad(){
+
+        return (int) ChronoUnit.YEARS.between(fechaNacimiento,LocalDate.now());
+
     }
 
     public String getNombre() {
@@ -83,7 +106,7 @@ public class Persona {
     }
 
     public void setSexo(Sexo sexo) {
-        this.sexo = sexo;
+        this.sexo = (sexo != null) ? sexo : Sexo.NS_NC;
     }
 
     public void setPeso(double peso) {
@@ -96,13 +119,9 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" +
-                "nombre='" + nombre + '\'' +
-                ", fechaNacimiento=" + fechaNacimiento +
-                ", DNI='" + DNI + '\'' +
-                ", sexo=" + sexo +
-                ", peso=" + peso +
-                ", altura=" + altura +
-                '}';
+        StringBuilder sb = new StringBuilder();
+
+        return sb.append(String.format("Nombre: %s \n Fecha de nacimiento: %s \n DNI: %s \n Sexo: %s \n Peso: %.2f \n Altura: %.2f ",
+                nombre,fechaNacimiento,DNI,sexo,peso,altura)).toString();
     }
 }
