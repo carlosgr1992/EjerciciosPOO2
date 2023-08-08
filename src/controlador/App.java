@@ -31,7 +31,7 @@ public class App {
         DNI dniAleatorio = new DNI();
         int numeroDni = dniAleatorio.generaNumeroDniAleatorio();
         char letraDNI = dniAleatorio.generaLetraDni(numeroDni);
-        Persona prueba2 = new Persona("Jose",LocalDate.of(1990,05,20),new DNI(numeroDni,letraDNI),Sexo.HOMBRE,77,1.78);
+        Persona prueba2 = new Persona("Jose",LocalDate.of(2008,05,20),new DNI(numeroDni,letraDNI),Sexo.HOMBRE,77,1.78);
 
         diccionarioPersonas.put(prueba.getDNI(),prueba);
         diccionarioPersonas.put(prueba2.getDNI(),prueba2);
@@ -77,7 +77,55 @@ public class App {
         switch (opcion){
             case 1 -> muestraPersonas();
             case 2 -> creaPersonaCompleto();
+            case 3 -> creaPersonaSimple();
+            case 4 -> modificaPersonaConDNI();
+            case 5 -> muestraMayoresDeEdad();
+            case 0 -> System.out.println("Gracias por usar el programa");
         }
+    }
+
+    private static void muestraMayoresDeEdad() {
+
+        for (Persona persona : diccionarioPersonas.values()){
+            System.out.println(persona.toStringEdad());
+        }
+
+    }
+
+    private static void modificaPersonaConDNI() {
+
+        int dniPersona = Entrada.pideEntero("Introduce el DNI sobre el que desea modificar su altura:");
+        int contador = 0;
+        for (Persona persona : diccionarioPersonas.values()) {
+            if (persona.getDNI().getNumeros() == dniPersona) {
+                double alturaModificada = Entrada.pideDouble("¿Qué altura desea poner?");
+                persona.setAltura(alturaModificada);
+                System.out.println("Cambio de altura modificado con éxito");
+                contador ++;
+            }
+        }
+        if(contador == 0){
+            System.out.println("No se encontró a ninguna persona con ese DNI");
+        }
+
+    }
+
+    private static void creaPersonaSimple() {
+
+        String nombre = Entrada.pideTexto("Introduce nombre:");
+        String fechaStr = Entrada.pideTexto("Introduce fecha de nacimiento (dd/MM/yyyy):");
+        LocalDate fecha = LocalDate.parse(fechaStr, FORMATO);
+        String sexo = Entrada.pideTexto("¿Hombre o mujer?");
+        Sexo sexoPersona;
+        if (sexo.equalsIgnoreCase("hombre")) {
+            sexoPersona = Sexo.HOMBRE;
+        } else if(sexo.equalsIgnoreCase("mujer")){
+            sexoPersona = Sexo.MUJER;
+        }else sexoPersona = Sexo.NS_NC;
+
+        Persona personaCorta = new Persona(nombre,fecha,sexoPersona);
+
+        diccionarioPersonas.put(personaCorta.getDNI(),personaCorta);
     }
 
     private static void creaPersonaCompleto() {
@@ -91,9 +139,11 @@ public class App {
         String letraDni = Entrada.pideTexto("Introduce la letra del DNI");
         String sexo = Entrada.pideTexto("¿Hombre o mujer?");
         Sexo sexoPersona;
-        if (sexo.equalsIgnoreCase("hombre")) {
-            sexoPersona = Sexo.HOMBRE;
-        } else sexoPersona = Sexo.MUJER;
+            if (sexo.equalsIgnoreCase("hombre")) {
+                sexoPersona = Sexo.HOMBRE;
+            } else if(sexo.equalsIgnoreCase("mujer")){
+                sexoPersona = Sexo.MUJER;
+            }else sexoPersona = Sexo.NS_NC;
         double peso = Entrada.pideDouble("Introduzca su peso");
         double altura = Entrada.pideDouble("Introduzca su altura en metros (Ej: 1.78)");
         DNI dniPersona = new DNI(numeroDni,letraDni.charAt(0));
@@ -124,9 +174,9 @@ public class App {
             muestraMenu();
             try {
                 opcion = Entrada.pideEntero("Introduce una opción del menú:");
-                esValido = Validador.estaEntre(opcion, MIN_OPCION, MAX_OPCION);
+                esValido = Validador.estaEntre(opcion, MIN_OPCION, MAX_OPCION) || opcion == SALIR;
                 if (!esValido) {
-                    System.out.printf("Las opción debe estar entre el %d y el %d", MIN_OPCION, MAX_OPCION);
+                    System.out.printf("Las opción debe estar entre el %d y el %d\n", MIN_OPCION, MAX_OPCION);
                 }
                 gestionaMenu(opcion);
             }catch (NumberFormatException ex){
