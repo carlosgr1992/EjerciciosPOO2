@@ -1,8 +1,10 @@
 package controlador;
 
 import enumerados.Sexo;
+import modelo.Cuenta;
 import modelo.DNI;
 import modelo.Persona;
+import modelo.Transferencia;
 import servicios.Entrada;
 import servicios.Validador;
 
@@ -35,6 +37,7 @@ public class App {
 
         diccionarioPersonas.put(prueba.getDNI(),prueba);
         diccionarioPersonas.put(prueba2.getDNI(),prueba2);
+        diccionarioPersonas.put(persona.getDNI(),persona);
 
     }
 
@@ -186,17 +189,33 @@ public class App {
         }while(opcion != SALIR);
 
     }
+    private static void ejercicio3() {
+
+        DNI dniNuevo = new DNI("518521",'B');
+        Persona personaNueva = new Persona("Juanete",LocalDate.of(1990,05,25),dniNuevo,Sexo.HOMBRE,78,1.80);
+        Cuenta cuentaPersonaNueva = new Cuenta(personaNueva,8500);
+
+        DNI dniOtro = new DNI("851513",'X');
+        Persona personaOtro = new Persona("Alberto",LocalDate.of(2000,02,1),dniOtro,Sexo.HOMBRE,70,1.70);
+        Cuenta cuentaPersonaOtro = new Cuenta(personaOtro,2100);
+
+
+        Transferencia transferencia = new Transferencia(cuentaPersonaNueva,cuentaPersonaOtro,2000);
+
+        System.out.println(transferencia.realizarTransferencia());
+
+    }
 
 
     public static void main(String[] args) {
 
         inicializar();
 
-        ejercicio1();
-        ejercicio2();
+        //ejercicio1();
+        //ejercicio2();
+        ejercicio3();
+
 
     }
-
-
 
 }
