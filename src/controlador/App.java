@@ -189,7 +189,7 @@ public class App {
         }while(opcion != SALIR);
 
     }
-    private static void ejercicio3() {
+    private static void ejercicio345() {
 
         DNI dniNuevo = new DNI("518521",'B');
         Persona personaNueva = new Persona("Juanete",LocalDate.of(1990,05,25),dniNuevo,Sexo.HOMBRE,78,1.80);
@@ -202,8 +202,11 @@ public class App {
 
         Transferencia transferencia = new Transferencia(cuentaPersonaNueva,cuentaPersonaOtro,2000);
 
+        System.out.printf("El saldo de la cuenta de origen antes de la transferencia es de %.2f y el de la cuenta destino es de %.2f",cuentaPersonaNueva.getSaldo(), cuentaPersonaOtro.getSaldo());
+
         System.out.println(transferencia.realizarTransferencia());
 
+        System.out.printf("El saldo de la cuenta de origen despues de la transferencia es de %.2f y el de la cuenta destino es de %.2f",cuentaPersonaNueva.getSaldo(), cuentaPersonaOtro.getSaldo());
     }
 
 
@@ -213,7 +216,7 @@ public class App {
 
         //ejercicio1();
         //ejercicio2();
-        ejercicio3();
+        ejercicio345();
 
 
     }

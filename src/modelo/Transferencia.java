@@ -23,7 +23,7 @@ public class Transferencia {
         String texto;
         if(cuentaOrigen.retirar(cantidad)){
             cuentaDestino.ingresar(cantidad);
-            texto = String.format("%s Ha hecho una transferencia de %.2f euros a %s el día %s",cuentaOrigen.getTitular().getNombre(),cantidad,cuentaDestino.getTitular().getNombre(),fechaTransferencia.format(FORMATO));
+            texto = String.format("\n%s Ha hecho una transferencia de %.2f euros a %s el día %s",cuentaOrigen.getTitular().getNombre(),cantidad,cuentaDestino.getTitular().getNombre(),fechaTransferencia.format(FORMATO));
         }else  texto = "Imposible realizar la transferencia.";
         return texto;
     }
