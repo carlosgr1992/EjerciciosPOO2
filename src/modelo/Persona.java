@@ -124,13 +124,13 @@ public class Persona {
         StringBuilder sb = new StringBuilder();
 
         return sb.append(String.format("Nombre: %s \n Fecha de nacimiento: %s \n DNI: %s \n Sexo: %s \n Peso: %.2f \n Altura: %.2f ",
-                nombre,fechaNacimiento.format(App.FORMATO),DNI,sexo,peso,altura)).toString();
+                nombre,fechaNacimiento.format(App.FORMATO_FECHA),DNI,sexo,peso,altura)).toString();
     }
 
     public String toStringEdad() {
         StringBuilder sb = new StringBuilder();
 
         return sb.append(String.format("Nombre: %s \n Fecha de nacimiento: %s \n DNI: %s \n Sexo: %s \n Peso: %.2f \n Altura: %.2f \n Mayor de edad: %s \n",
-                nombre,fechaNacimiento.format(App.FORMATO),DNI,sexo,peso,altura, mayorEdad() ? "Sí" : "No")).toString();
+                nombre,fechaNacimiento.format(App.FORMATO_FECHA),DNI,sexo,peso,altura, mayorEdad() ? "Sí" : "No")).toString();
     }
 }

@@ -20,7 +20,8 @@ public class App {
     private static final int MIN_OPCION = 1;
     private static final int MAX_OPCION = 5;
     private static Map<DNI,Persona> diccionarioPersonas;
-    public static DateTimeFormatter FORMATO = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static DateTimeFormatter FORMATO_HORA = DateTimeFormatter.ofPattern("HH:mm");
 
     private static void inicializar() {
 
@@ -117,7 +118,7 @@ public class App {
 
         String nombre = Entrada.pideTexto("Introduce nombre:");
         String fechaStr = Entrada.pideTexto("Introduce fecha de nacimiento (dd/MM/yyyy):");
-        LocalDate fecha = LocalDate.parse(fechaStr, FORMATO);
+        LocalDate fecha = LocalDate.parse(fechaStr, FORMATO_FECHA);
         String sexo = Entrada.pideTexto("¿Hombre o mujer?");
         Sexo sexoPersona;
         if (sexo.equalsIgnoreCase("hombre")) {
@@ -136,7 +137,7 @@ public class App {
         String nombre = Entrada.pideTexto("Introduce nombre:");
         try {
             String fechaStr = Entrada.pideTexto("Introduce fecha de nacimiento (dd-MM-yyyy):");
-            LocalDate fecha = LocalDate.parse(fechaStr, FORMATO);
+            LocalDate fecha = LocalDate.parse(fechaStr, FORMATO_FECHA);
 
         int numeroDni = Entrada.pideEntero("Introduce un DNI (solo números)");
         String letraDni = Entrada.pideTexto("Introduce la letra del DNI");
